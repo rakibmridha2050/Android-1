@@ -1,10 +1,14 @@
 package com.rakib.myapplication;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -13,11 +17,18 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+
 public class MainActivity extends AppCompatActivity {
 
     EditText etUsername, etPassword;
     Button btnLogin;
     Button btnChooseColor;
+
+    FloatingActionButton fab;
+
+    TextView tvSignUp;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -30,6 +41,21 @@ public class MainActivity extends AppCompatActivity {
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
+        fab = findViewById(R.id.fab);
+        tvSignUp = findViewById(R.id.tvSignUp);
+
+        tvSignUp.setOnClickListener(v -> {
+            Toast.makeText(MainActivity.this, "Sing up  click", Toast.LENGTH_LONG).show();
+
+            Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
+            startActivity(intent);
+
+        });
+
+        fab.setOnClickListener(v -> {
+            Toast.makeText(MainActivity.this, "fab click", Toast.LENGTH_LONG).show();
+
+        });
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,7 +63,49 @@ public class MainActivity extends AppCompatActivity {
                 String username = etUsername.getText().toString().trim();
                 String password = etPassword.getText().toString().trim();
 
-                Toast.makeText(MainActivity.this, "Hello", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity.this, "Hello", Toast.LENGTH_SHORT).show();
+
+                if (username.isEmpty() || password.isEmpty()){
+
+                    Toast.makeText(MainActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+                } else if (username.equals("admin")&& password.equals("1234")) {
+                    Toast.makeText(MainActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
+
+                }else {
+
+                    LayoutInflater inflater = getLayoutInflater();
+                    View layout = inflater.inflate(R.layout.custom_toast, null);
+
+                    TextView text = layout.findViewById(R.id.toast_text);
+                    text.setText("hello Rakib ! Custom toast!  working");
+
+                    Toast toast = new Toast(getApplicationContext());
+                    toast.setDuration(Toast.LENGTH_SHORT);
+                    toast.setView(layout);
+                    toast.show();
+
+
+
+
+//                    Toast.makeText(MainActivity.this, "Invalid Credentials", Toast.LENGTH_SHORT).show();
+//                    Snackbar.make(findViewById(android.R.id.content), "Message deleted", Snackbar.LENGTH_SHORT).setAction("UNDO", new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            Toast.makeText(MainActivity.this, "Action undone", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }).show();
+
+//                    new AlertDialog.Builder(MainActivity.this).setTitle("Delete Item").setMessage("Are you sure you want to delete this?")
+//                            .setIcon(android.R.drawable.ic_dialog_alert)
+//                            .setPositiveButton("Yes", (dialog, which) ->{
+//                                Toast.makeText(MainActivity.this, "Deleted", Toast.LENGTH_SHORT).show();
+//
+//                            } ).setNegativeButton("No",(dialog, which) -> {
+//                                Toast.makeText(MainActivity.this, "No Deleted", Toast.LENGTH_LONG).show();
+//
+//                            }).show();
+
+                }
             }
         });
 
