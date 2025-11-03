@@ -12,8 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyFirstApplication">
         <activity
+            android:name=".ui.ProductListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.ProductAddActivity"
+            android:exported="false" />
+        <activity
             android:name=".SignUpActivity"
             android:exported="false" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">

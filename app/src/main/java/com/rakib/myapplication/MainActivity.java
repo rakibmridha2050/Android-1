@@ -19,12 +19,13 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.rakib.myapplication.ui.ProductAddActivity;
 
 public class MainActivity extends AppCompatActivity {
 
     EditText etUsername, etPassword;
-    Button btnLogin;
-    Button btnChooseColor;
+    Button btnLogin, btnChooseColor, productAdd;
+
 
     FloatingActionButton fab;
 
@@ -37,12 +38,19 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-
+        productAdd = findViewById(R.id.productAdd);
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
         fab = findViewById(R.id.fab);
         tvSignUp = findViewById(R.id.tvSignUp);
+        productAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(MainActivity.this, ProductAddActivity.class);
+                startActivity(intent);
+            }
+        });
 
         tvSignUp.setOnClickListener(v -> {
             Toast.makeText(MainActivity.this, "Sing up  click", Toast.LENGTH_LONG).show();
