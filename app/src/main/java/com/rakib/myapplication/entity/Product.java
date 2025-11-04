@@ -7,29 +7,28 @@ public class Product {
     private String email;
     private Double price;
     private Integer quantity;
+    private String imageUri;
 
-
-    //CONSTRUCTOR
     public Product() {
     }
 
-    public Product(Integer quantity, Double price, String email, String name) {
+    public Product(String imageUri, Integer quantity, Double price, String email, String name) {
+        this.imageUri = imageUri;
         this.quantity = quantity;
         this.price = price;
         this.email = email;
         this.name = name;
     }
 
-    public Product(int id, Integer quantity, Double price, String email, String name) {
+    public Product(int id, String name, String email, Double price, Integer quantity, String imageUri) {
         this.id = id;
-        this.quantity = quantity;
-        this.price = price;
-        this.email = email;
         this.name = name;
+        this.email = email;
+        this.price = price;
+        this.quantity = quantity;
+        this.imageUri = imageUri;
     }
 
-
-    //GETTER AND SETTER
     public int getId() {
         return id;
     }
@@ -38,20 +37,20 @@ public class Product {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getImageUri() {
+        return imageUri;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setImageUri(String imageUri) {
+        this.imageUri = imageUri;
     }
 
-    public String getEmail() {
-        return email;
+    public Integer getQuantity() {
+        return quantity;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 
     public Double getPrice() {
@@ -62,11 +61,19 @@ public class Product {
         this.price = price;
     }
 
-    public Integer getQuantity() {
-        return quantity;
+    public String getEmail() {
+        return email;
     }
 
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

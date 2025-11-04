@@ -20,11 +20,12 @@ import androidx.core.view.WindowInsetsCompat;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.rakib.myapplication.ui.ProductAddActivity;
+import com.rakib.myapplication.ui.ProductListActivity;
 
 public class MainActivity extends AppCompatActivity {
 
     EditText etUsername, etPassword;
-    Button btnLogin, btnChooseColor, productAdd;
+    Button btnLogin, btnChooseColor, productAdd, productList;
 
 
     FloatingActionButton fab;
@@ -44,6 +45,16 @@ public class MainActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
         fab = findViewById(R.id.fab);
         tvSignUp = findViewById(R.id.tvSignUp);
+        productList= findViewById(R.id.productList);
+
+        productList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(MainActivity.this, ProductListActivity.class);
+                startActivity(intent);
+            }
+        });
+
         productAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
