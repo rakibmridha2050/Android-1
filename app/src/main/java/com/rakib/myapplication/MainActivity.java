@@ -3,6 +3,9 @@ package com.rakib.myapplication;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,12 +35,19 @@ public class MainActivity extends AppCompatActivity {
 
     TextView tvSignUp;
 
+    NetworkChangeReceiver receiver = new NetworkChangeReceiver();
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+
+
+
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(receiver, filter);
 
         productAdd = findViewById(R.id.productAdd);
         etUsername = findViewById(R.id.etUsername);
@@ -76,11 +86,23 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
+        SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String username = etUsername.getText().toString().trim();
                 String password = etPassword.getText().toString().trim();
+
+                editor.putString("username", username);
+                editor.putString("password", password);
+                editor.putBoolean("isLoggedIn", true);
+
+                editor.apply();
+
+                Intent intent = new Intent(MainActivity.this, ProductAddActivity.class);
+                startActivity(intent);
 
 //                Toast.makeText(MainActivity.this, "Hello", Toast.LENGTH_SHORT).show();
 
@@ -135,5 +157,11 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(receiver);
     }
 }

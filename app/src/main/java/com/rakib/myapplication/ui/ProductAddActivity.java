@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -57,6 +58,15 @@ public class ProductAddActivity extends AppCompatActivity {
         imgProduct = findViewById(R.id.imgProduct);
 
         productDao = new ProductUtil(this);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
+
+        String username =sharedPreferences.getString("username", "Guest");
+        String password =sharedPreferences.getString("password", "1234");
+//        int age = sharedPreferences.getInt("userAge", 0);
+        boolean loggedIn = sharedPreferences.getBoolean("isLoggedIn", false);
+
+        Toast.makeText(this, "User: " + username + "Password: " + password, Toast.LENGTH_SHORT).show();
 
         // Permission launcher
         permissionLauncher = registerForActivityResult(
